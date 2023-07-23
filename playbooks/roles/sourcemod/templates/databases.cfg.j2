@@ -1,0 +1,35 @@
+"Databases"
+{
+    "clientprefs"
+    {
+        "driver"			"mysql"
+        "database"			"clientprefs"
+        "host"              "/run/mysqld/mysqld.sock"
+        "user"              "{{ database.clientprefs.user }}"
+        "pass"              "{{ database.clientprefs.pass }}"
+    }
+    "admins"
+    {
+        "driver"			"mysql"
+        "host"              "/run/mysqld/mysqld.sock"
+        "database"			"smadmins"
+        "user"              "{{ database.smadmins.user }}"
+        "pass"              "{{ database.smadmins.pass }}"
+    }
+    "storage-local"
+    {
+        "driver"			"mysql"
+        "host"              "/run/mysqld/mysqld.sock"
+        "database"			"storagelocal"
+        "user"              "{{ database.storagelocal.user }}"
+        "pass"              "{{ database.storagelocal.pass }}"
+    }
+    "sourcebans"
+    {
+        "driver"			"mysql"
+        "host"				"/run/mysqld/mysqld.sock"
+        "database"			"sourcebans"
+        "user"				"{{ database.sourcebans.user }}"
+        "pass"				"{{ database.sourcebans.pass }}"
+    }
+}

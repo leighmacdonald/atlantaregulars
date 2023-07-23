@@ -4,4 +4,4 @@ all:
       children:
         tf2:
           hosts:
-            atlantaregulars.com:
+            example.com:

@@ -32,3 +32,111 @@
   ansible.builtin.command:
     chdir: ~/sourcemod/addons/sourcemod/scripting
     cmd: bash build.sh
+
+- name: /tf/addons/sourcemod/configs/maplists.cfg
+  ansible.builtin.template:
+    src: maplists.cfg.j2
+    dest: ~/sourcemod/addons/sourcemod/configs/maplists.cfg
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/databases.cfg
+  ansible.builtin.template:
+    src: databases.cfg.j2
+    dest: ~/sourcemod/addons/sourcemod/configs/databases.cfg
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/databases.cfg
+  ansible.builtin.template:
+    src: sourcebans.cfg.j2
+    dest: ~/sourcemod/addons/sourcemod/configs/sourcebans/sourcebans.cfg
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/core.cfg
+  ansible.builtin.template:
+    src: core.cfg.j2
+    dest: ~/sourcemod/addons/sourcemod/configs/core.cfg
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/discord.cfg
+  ansible.builtin.template:
+    src: discord.cfg.j2
+    dest: ~/sourcemod/addons/sourcemod/configs/discord.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/basevotes.cfg
+  ansible.builtin.template:
+    src: basevotes.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/basevotes.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/funvotes.cfg
+  ansible.builtin.template:
+    src: funvotes.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/funvotes.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/mapchooser.cfg
+  ansible.builtin.template:
+    src: mapchooser.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/mapchooser.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/sigsegv_convars.cfg
+  ansible.builtin.template:
+    src: sigsegv_convars.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/sigsegv_convars.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/randomcycle.cfg
+  ansible.builtin.template:
+    src: randomcycle.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/randomcycle.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/rtv.cfg
+  ansible.builtin.template:
+    src: rtv.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/rtv.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/sourcemod.cfg
+  ansible.builtin.template:
+    src: sourcemod.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/sourcemod.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/discord_sourcebans.cfg
+  ansible.builtin.template:
+    src: discord_sourcebans.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/discord_sourcebans.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/discord_sourcecomms.cfg
+  ansible.builtin.template:
+    src: discord_sourcecomms.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/discord_sourcecomms.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/Sm_SourceSleuth.cfg
+  ansible.builtin.template:
+    src: Sm_SourceSleuth.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/Sm_SourceSleuth.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/stac.cfg
+  ansible.builtin.template:
+    src: stac.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/stac.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/networktools.cfg
+  ansible.builtin.template:
+    src: networktools.cfg.j2
+    dest: ~/sourcemod/cfg/sourcemod/networktools.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/discord_accelerator.cfg
+  ansible.builtin.template:
+    src: discord_accelerator.cfg.j2
+    dest: "~/sourcemod/cfg/sourcemod/discord_accelerator.cfg"
+    mode: 0755

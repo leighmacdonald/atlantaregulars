@@ -30,4 +30,4 @@ Admin user, level 50 immunity, cannot perform actions against the 100, despite b
 
 You *must* run this command after making changes to admins, or otherwise restart the server.
 
-    sm_update_adm_tables
+    sm_reloadadmins
