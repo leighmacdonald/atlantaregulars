@@ -1,0 +1,7 @@
+all:
+  children:
+    secrets:
+      children:
+        tf2:
+          hosts:
+            atlantaregulars.com:

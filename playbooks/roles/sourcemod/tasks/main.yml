@@ -1,0 +1,34 @@
+---
+
+- name: Recursively remove directory
+  ansible.builtin.file:
+    path: ~/sourcemod/
+    state: absent
+
+- name: Create ~/sourcemod/ directory
+  ansible.builtin.file:
+    path: ~/sourcemod/
+    state: directory
+    mode: "0775"
+
+- name: Download latest metamod
+  ansible.builtin.unarchive:
+    src: https://mms.alliedmods.net/mmsdrop/1.11/mmsource-1.11.0-git1148-linux.tar.gz
+    dest: ~/sourcemod/
+    remote_src: true
+
+- name: Download latest sourcemod
+  ansible.builtin.unarchive:
+    src: https://sm.alliedmods.net/smdrop/1.11/sourcemod-1.11.0-git6934-linux.tar.gz
+    dest: ~/sourcemod/
+    remote_src: true
+
+- name: Copy extensions & plugin sources
+  ansible.builtin.synchronize:
+    src: "{{ role_path }}/files/"
+    dest: ~/sourcemod/
+
+- name: Build plugins
+  ansible.builtin.command:
+    chdir: ~/sourcemod/addons/sourcemod/scripting
+    cmd: bash build.sh

@@ -1,0 +1,14 @@
+---
+- name: Web
+  hosts: all
+  become: yes
+  roles:
+    - role: caddy_ansible.caddy_ansible
+      caddy_conf_filename: Caddyfile
+      caddy_config: "{{ lookup('ansible.builtin.template', 'Caddyfile.j2') }}"
+      caddy_setcap: true
+      caddy_config_update: true
+      caddy_systemd_capabilities_enabled: true
+      caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
+
+    - web

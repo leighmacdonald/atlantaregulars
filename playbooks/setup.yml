@@ -1,0 +1,102 @@
+---
+- hosts: all
+  tasks:
+    - name: Set timezone
+      become: true
+      community.general.timezone:
+        name: "{{ timezone }}"
+
+    - name: Check if i386 is enabled
+      become: true
+      ansible.builtin.shell: dpkg --print-foreign-architectures | grep i386
+      register: result_i386_check
+      changed_when: result_i386_check.rc == 1
+      failed_when: result_i386_check.rc > 1
+
+    - name: Enable i386 architecture
+      become: true
+      ansible.builtin.command: dpkg --add-architecture i386
+      when: result_i386_check.rc == 1
+
+    - name: Add .net repo
+      become: true
+      apt:
+        deb: https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb
+
+    - name: Install OS Dependencies
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 0
+        state: present
+        pkg:
+          - unzip
+          - libc6:i386
+          - lib32stdc++6
+          - tuned
+          - dotnet-runtime-7.0
+          - tmux
+          - lib32gcc-s1
+          - libtinfo5:i386
+          - libncurses5:i386
+          - libcurl3-gnutls:i386
+          - php8.1-fpm
+          - php8.1-mysql
+          - php-xml
+          - php-gmp
+          - mariadb-server
+          - mariadb-client
+          - python3-mysqldb
+
+    - name: tuned
+      become: true
+      ansible.builtin.shell: tuned-adm profile latency-performance
+
+    - name: Configure cpufrequtils
+      become: true
+      ansible.builtin.copy:
+        dest: "/etc/default/cpufrequtils"
+        content: |
+          GOVERNOR="performance"
+
+    - name: Disable irqbalance
+      become: true
+      ansible.builtin.systemd:
+        name: irqbalance
+        state: stopped
+        masked: true
+        enabled: false
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: ~/dd
+        state: directory
+        mode: '0755'
+
+    - name: get dd
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_2.5.0/depotdownloader-2.5.0.zip"
+        dest: ~/dd
+
+    - name: ufw allow 22
+      become: true
+      ansible.builtin.ufw:
+        rule: allow
+        port: "22"
+        proto: tcp
+
+    - name: ufw limit 22
+      become: true
+      ansible.builtin.ufw:
+        comment: TF2 Ansible
+        rule: limit
+        port: "22"
+        proto: tcp
+
+    - name: ufw enable
+      become: true
+      ansible.builtin.ufw:
+        state: enabled
+        policy: deny
+        direction: incoming

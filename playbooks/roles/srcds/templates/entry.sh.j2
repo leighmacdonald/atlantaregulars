@@ -1,0 +1,17 @@
+#!/bin/bash
+cd "{{srcds_steam_app_dir}}"
+
+bash "{{srcds_steam_app_dir}}/srcds_run" -game "{{srcds_steam_app}}" -console \
+  -strictportbind \
+  -usercon \
+  -secured \
+  -port "{{ srcds_base_port }}" \
+  +tv_port "{{ srcds_base_port + 1 }}" \
+  +clientport "{{ srcds_base_port + 5 }}" \
+  +maxplayers {{ srcds_max_players|default(24) }} \
+  +map "{{ map_rotations[map_rotation|default("regular")] | random }}" \
+  +sv_setsteamaccount "{{ gslt }}" \
+  +rcon_password "{{ srcds_rcon_password }}" \
+  +sv_password "{{ srcds_server_password }}" \
+  +sv_region "{{ srcds_region | quote }}" \
+  {% if ip != "" %}+ip {{ ip }} {% endif %}

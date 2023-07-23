@@ -1,0 +1,9 @@
+atlantaregulars.com {
+    log {
+        output file /var/log/caddy/atlantaregulars.com-access.log
+    }
+
+    root * /srv/sourcebans/sourcebans-pp-1.7.0.webpanel-only
+    php_fastcgi unix//run/php/php8.1-fpm.sock
+    file_server
+}

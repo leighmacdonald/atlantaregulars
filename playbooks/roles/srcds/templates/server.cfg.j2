@@ -1,0 +1,156 @@
+log on
+mp_logdetail "3"
+
+sv_minrate 80000
+sv_maxrate 0
+sv_maxupdaterate 66
+sv_minupdaterate 30
+sv_maxcmdrate 66
+sv_mincmdrate 30
+
+sv_client_cmdrate_difference "0"
+net_splitpacket_maxrate	"100000"
+
+// Force client values to be in range
+sv_competitive_minspec 1
+
+sv_client_min_interp_ratio 1
+sv_client_max_interp_ratio 2
+sv_client_predict "1"
+
+{% if stv_enable|default(false) %}
+tv_enable 1
+tv_autorecord 0
+tv_maxclients 5
+tv_transmitall 1
+tv_delaymapchange 0
+tv_delay 0
+tv_maxrate 0
+tv_port "{{ srcds_base_port + 1 }}"
+tv_allow_camera_man 1
+tv_password "{{ stv_password }}"
+// Hostname
+tv_name "{{ name }} | STV"
+// In-game name
+tv_title "{{ stv_name }}"
+{% endif %}
+
+// Server Logging
+sv_logbans 1
+sv_logecho 1
+sv_logfile 0
+sv_log_onefile 0
+
+tf_medieval 0
+tf_medieval_autorp 0
+
+tf_gravetalk 1
+sv_alltalk {% if sv_alltalk|default(false) %}1{% else %}0{% endif %}
+
+tf_forced_holiday {% if tf_forced_holiday|default(false) %}2{% else %}0{% endif %}
+
+sv_cheats 0
+sv_pausable 0
+
+tf_ctf_bonus_time 0
+
+// Remove random crits
+tf_weapon_criticals {% if tf_weapon_criticals|default(false) %}1{% else %}0{% endif %}
+
+tf_use_fixed_weaponspreads 1
+
+// Dont spectate other team
+mp_forcecamera 1
+
+// Extra time for map voting
+mp_enableroundwaittime 1
+mp_restartround 0
+mp_bonusroundtime 19
+mp_chattime 20
+
+// Dont push same team
+tf_avoidteammates_pushaway 0
+
+// Rocket jump during preround
+tf_preround_push_from_damage_enable 1
+
+// comp fixes
+sm_deterministic_fall_damage 1
+sm_fix_ghost_crossbow_bolts 1
+sm_fix_slope_bug 1
+sm_fix_sticky_delay 1
+sm_fix_reflect_self_damage 1
+sm_inhibit_extendfreeze 1
+sm_gunboats_always_apply 1
+
+// Server voting options
+sv_vote_issue_nextlevel_allowed 0
+sv_vote_issue_extendlevel_allowed 0
+sv_vote_issue_kick_allowed 1
+sv_vote_issue_scramble_teams_allowed 0
+sv_vote_kick_ban_duration 20
+
+
+// Dont spectate other team
+
+// Ask autobalance
+mp_autoteambalance 0
+mp_teams_unbalance_limit 1
+tf_autobalance_ask_candidates_maxtime 10
+tf_autobalance_dead_candidates_maxtime 0
+tf_autobalance_force_candidates_maxtime 0
+tf_autobalance_xp_bonus 0
+
+// Default map time limit
+mp_timelimit 30
+mp_match_end_at_timelimit 0
+mp_winlimit 0
+mp_maxrounds 0
+
+// Extra time for map voting
+mp_enableroundwaittime 1
+mp_restartround 0
+
+mp_chattime 20
+
+// No spectators team
+mp_allowspectators {% if mp_allowspectators|default(false) %}1{% else %}0{% endif %}
+
+mp_forceautoteam {% if mp_forceautoteam|default(false) %}0{% else %}1{% endif %}
+
+// Dont push same team
+tf_avoidteammates_pushaway 0
+
+// Rocket jump during preround
+tf_preround_push_from_damage_enable 1
+
+// Classrestrict plugin
+sm_classrestrict_enabled 1
+sm_classrestrict_immunity 0
+{% for team in ["blu","red"] %}
+{% for cls in ["demomen", "engineers", "heavies", "medics", "pyros", "scouts", "snipers", "soldiers", "spies"] %}
+sm_classrestrict_{{ team }}_{{ cls }} {{ tf_classlimit|default(3) }}
+{% endfor %}
+{% endfor %}
+
+// Built in class limit commands
+tf_classlimit {{ tf_classlimit|default(3) }}
+sv_vote_issue_classlimits_allowed 0
+sv_vote_issue_classlimits_max 3
+
+// Disable stalemates
+mp_stalemate_enable 0
+mp_stalemate_timelimit 240
+
+net_disconnect_reason 1
+tf_fall_damage_disablespread 1
+net_chan_limit_msec 160
+
+// Disable glow for the more "serious" servers running stopwatch
+tf_spawn_glows_duration {{ tf_spawn_glows_duration|default(10) }}
+
+{% for k, v in sm_cvars.items() %}
+sm_cvar {{ k }} "{{ v }}"
+{% endfor %}
+
+sm_cvar mp_waitingforplayers_time 35

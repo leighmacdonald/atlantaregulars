@@ -1,0 +1,181 @@
+---
+- name: Create srcds directory
+  ansible.builtin.file:
+    path: ~/srcds
+    state: directory
+    mode: "0755"
+
+- name: Update TF2
+  ansible.builtin.command: dotnet ~/dd/DepotDownloader.dll -app 232250 -os linux -osarch 32 -max-downloads 8 -dir ~/srcds
+
+- name: Copy sourcemod distribution to /tf
+  ansible.posix.synchronize:
+    src: /home/tf2server/sourcemod/
+    dest: /home/tf2server/srcds/tf/
+    recursive: true
+  # Perform the copy from the *remote* sourcemod build output
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: /tf/mapcycle.txt
+  ansible.builtin.template:
+    src: mapcycle.txt.j2
+    dest: ~/srcds/tf/mapcycle.txt
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/maplists.cfg
+  ansible.builtin.template:
+    src: maplists.cfg.j2
+    dest: ~/srcds/tf/addons/sourcemod/configs/maplists.cfg
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/databases.cfg
+  ansible.builtin.template:
+    src: databases.cfg.j2
+    dest: ~/srcds/tf/addons/sourcemod/configs/databases.cfg
+    mode: 0755
+
+- name: /tf/cfg/autoexec.cfg
+  ansible.builtin.template:
+    src: autoexec.cfg.j2
+    dest: ~/srcds/tf/cfg/autoexec.cfg
+    mode: 0755
+
+- name: /tf/cfg/server.cfg
+  ansible.builtin.template:
+    src: server.cfg.j2
+    dest: ~/srcds/tf/cfg/server.cfg
+    mode: 0755
+
+- name: /tf/cfg/motd.cfg
+  ansible.builtin.template:
+    src: motd.txt.j2
+    dest: ~/srcds/tf/cfg/motd.txt
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/core.cfg
+  ansible.builtin.template:
+    src: core.cfg.j2
+    dest: ~/srcds/tf/addons/sourcemod/configs/core.cfg
+    mode: 0755
+
+- name: /tf/addons/sourcemod/configs/discord.cfg
+  ansible.builtin.template:
+    src: discord.cfg.j2
+    dest: ~/srcds/tf/addons/sourcemod/configs/discord.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/basevotes.cfg
+  ansible.builtin.template:
+    src: basevotes.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/basevotes.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/funvotes.cfg
+  ansible.builtin.template:
+    src: funvotes.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/funvotes.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/mapchooser.cfg
+  ansible.builtin.template:
+    src: mapchooser.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/mapchooser.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/sigsegv_convars.cfg
+  ansible.builtin.template:
+    src: sigsegv_convars.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/sigsegv_convars.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/randomcycle.cfg
+  ansible.builtin.template:
+    src: randomcycle.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/randomcycle.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/rtv.cfg
+  ansible.builtin.template:
+    src: rtv.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/rtv.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/sourcemod.cfg
+  ansible.builtin.template:
+    src: sourcemod.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/sourcemod.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/stac.cfg
+  ansible.builtin.template:
+    src: stac.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/stac.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/networktools.cfg
+  ansible.builtin.template:
+    src: networktools.cfg.j2
+    dest: ~/srcds/tf/cfg/sourcemod/networktools.cfg
+    mode: 0755
+
+- name: /tf/cfg/sourcemod/discord_accelerator.cfg
+  ansible.builtin.template:
+    src: discord_accelerator.cfg.j2
+    dest: "~/srcds/tf/cfg/sourcemod/discord_accelerator.cfg"
+    mode: 0755
+
+- name: Generate /entry.sh
+  ansible.builtin.template:
+    src: "entry.sh.j2"
+    dest: "~/srcds/entry.sh"
+    mode: 0775
+
+- name: Generate shell.sh
+  ansible.builtin.copy:
+    mode: 0775
+    content: "tmux -S ./tmux.sock attach"
+    dest: "~/srcds/shell.sh"
+
+- name: ufw allow 27015/udp
+  become: true
+  ansible.builtin.ufw:
+    rule: allow
+    port: "27015"
+    proto: udp
+
+- name: ufw allow 27015/tcp
+  become: true
+  ansible.builtin.ufw:
+    rule: allow
+    port: "27015"
+    proto: tcp
+
+- name: ufw allow 27016
+  become: true
+  ansible.builtin.ufw:
+    rule: allow
+    port: "27016"
+    proto: udp
+
+- name: ufw allow 27020
+  become: true
+  ansible.builtin.ufw:
+    rule: allow
+    port: "27020"
+    proto: udp
+
+- name: /etc/systemd/system/tf2server.service
+  become: true
+  ansible.builtin.template:
+    src: tf2server.service.j2
+    dest: "/etc/systemd/system/tf2server.service"
+    mode: 0755
+
+- name: Restart tf2server
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    state: started
+    enabled: true
+    name: tf2server
+

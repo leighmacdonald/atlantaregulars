@@ -1,0 +1,5 @@
+---
+- name: Update srcds
+  hosts: tf2
+  roles:
+    - sourcemod

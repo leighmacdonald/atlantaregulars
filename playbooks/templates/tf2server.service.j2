@@ -1,0 +1,19 @@
+[Unit]
+Description=Atlanta Regulars Team Fortress 2
+RefuseManualStart=no
+#RefuseManualStop=yes
+After=network.target
+
+[Service]
+#Type=oneshot
+Type=forking
+User=tf2server
+Group=tf2
+WorkingDirectory=/home/tf2server/srcds
+ExecStart=/usr/bin/tmux -S ./tmux.sock new-session -d -n "tf2" -s "srcds" ./entry.sh
+ExecStop=/usr/bin/tmux -S ./tmux.sock send -t "srcds" "exit" ENTER
+
+KillSignal=SIGCONT
+
+[Install]
+WantedBy=multi-user.target
