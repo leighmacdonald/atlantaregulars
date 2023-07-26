@@ -76,7 +76,11 @@ admin_overrides:
 motd: |
   Atlanta Regulars
 
-  Rules: no dumb
+  Rules: Rules: |
+    No bigotry is welcomed
+    No inflammatory content
+    To file a report, post a report in the designated channel in our discord
+    Play often enough and a mod/admin will invite you to our discord! All are welcome
 
 sm_cvars:
   sv_playerperfhistorycount: 20

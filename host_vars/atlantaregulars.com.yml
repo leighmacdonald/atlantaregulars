@@ -9,8 +9,7 @@ srcds_max_players: 32
 srcds_start_map: "pl_badwater"
 srcds_hostname: "Test"
 sv_tags: atl
-name: "Atlanta Regulars"
-rotation: "all"
+name: "ATLANTA REGULARS"
 map_rotation: "regular"
 sv_visiblemaxplayers: 24
 sv_alltalk: false
