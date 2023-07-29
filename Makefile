@@ -18,5 +18,8 @@ srcds:
 web:
 	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/web.yml
 
+rekey:
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault rekey -v hosts.yml group_vars/secrets.yml host_vars/*.yml
+
 encrypt:
-	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault rekey hosts.yml group_vars/secrets.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault encrypt -v hosts.yml group_vars/secrets.yml host_vars/*.yml
