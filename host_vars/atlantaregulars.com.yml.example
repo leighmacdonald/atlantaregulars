@@ -7,10 +7,10 @@ srcds_base_port: 27015
 srcds_tv_port: 27020
 srcds_max_players: 32
 srcds_start_map: "pl_badwater"
-srcds_hostname: "ATLANTA REGULARS"
-sv_tags: atl
-name: "ATLANTA REGULARS"
-map_rotation: "regular"
+srcds_hostname: "Example Hostname"
+sv_tags: ourtag
+name: "Example Hostname"
+map_rotation: "default"
 sv_visiblemaxplayers: 24
 sv_alltalk: false
 tf_spawn_glows_duration: 10
@@ -20,7 +20,7 @@ mp_allowspectators: false
 mp_forceautoteam: false
 sv_pure: 1
 tf_classlimit: 3
-stv_enable: true
-stv_name: "Orwell"
+stv_enable: false
+stv_name: "abc 123"
 fastdl_url: "http://dl.serveme.tf"
 tf_spawn_glows_duration: 0
