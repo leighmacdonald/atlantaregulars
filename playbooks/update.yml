@@ -7,3 +7,25 @@
       update_cache: true
       name: "*"
       state: latest
+
+  - ansible.builtin.include_role:
+      name: srcds
+
+  - name: "Send server meesage"
+    ansible.builtin.command: tmux -S /home/tf2server/srcds/tmux.sock send -t "srcds" "sm_csay RESTARTING IN 10seconds..." ENTER
+
+  - name: Restarting game in 10 seconds
+    ansible.builtin.pause:
+      seconds: 10
+
+  - name: Stop tf2server
+    ansible.builtin.command: tmux -S /home/tf2server/srcds/tmux.sock send -t "srcds" "quit \"dont touch th-\"" ENTER
+
+  - name: Waiting
+    ansible.builtin.pause:
+      seconds: 10
+
+  - name: Start tf2server
+    ansible.builtin.systemd:
+      name: tf2server
+      state: started

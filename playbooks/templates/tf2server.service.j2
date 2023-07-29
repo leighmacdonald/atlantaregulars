@@ -11,9 +11,10 @@ User=tf2server
 Group=tf2
 WorkingDirectory=/home/tf2server/srcds
 ExecStart=/usr/bin/tmux -S ./tmux.sock new-session -d -n "tf2" -s "srcds" ./entry.sh
-ExecStop=/usr/bin/tmux -S ./tmux.sock send -t "srcds" "exit" ENTER
+ExecStop=/usr/bin/tmux -S ./tmux.sock send -t "srcds" "quit" ENTER;
 
 KillSignal=SIGCONT
 
 [Install]
 WantedBy=multi-user.target
+

@@ -7,7 +7,7 @@ srcds_base_port: 27015
 srcds_tv_port: 27020
 srcds_max_players: 32
 srcds_start_map: "pl_badwater"
-srcds_hostname: "Test"
+srcds_hostname: "ATLANTA REGULARS"
 sv_tags: atl
 name: "ATLANTA REGULARS"
 map_rotation: "regular"
@@ -23,3 +23,4 @@ tf_classlimit: 3
 stv_enable: true
 stv_name: "Orwell"
 fastdl_url: "http://dl.serveme.tf"
+tf_spawn_glows_duration: 0
