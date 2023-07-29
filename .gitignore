@@ -1,3 +1,6 @@
 secrets.yml
 /playbooks/roles/community.mysql
 hosts.yml
+.vault_pw
+group_vars/*.yml
+host_vars/*.yml

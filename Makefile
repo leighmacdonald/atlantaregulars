@@ -1,18 +1,22 @@
 HOSTS := ./hosts.yml
 USER := tf2server
 PLAYBOOK_PATH := ./playbooks
+PASSWORD_FILE := ./.vault_pw
 
 setup:
-	ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/setup.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/setup.yml
 
 update:
-	ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/update.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/update.yml
 
 sourcemod:
-	ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/sourcemod.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/sourcemod.yml
 
 srcds:
-	ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/srcds.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/srcds.yml
 
 web:
-	ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/web.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/web.yml
+
+encrypt:
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault rekey hosts.yml group_vars/secrets.yml
