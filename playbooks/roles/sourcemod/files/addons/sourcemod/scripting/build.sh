@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "Compiling & enabling sourcemod plugins..."
 
 ./compile.sh || exit 2
@@ -10,7 +11,10 @@ do
 done
 
 # Disable plugins that are incompatible/unneeded with our plugin setup
-for PLUGIN in  admin-allspec \
+for PLUGIN in rockthevote \
+    mapchooser \
+    nominations \
+    admin-allspec \
     admin-sql-threaded \
     votediagnostics;
 do
