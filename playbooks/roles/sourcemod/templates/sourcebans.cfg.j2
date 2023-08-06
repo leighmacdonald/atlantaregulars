@@ -13,7 +13,7 @@
     "Config"
     {
         // Website address to tell where the player to go for unban, etc
-        "Website"			"https://{{ dns }}/"
+        "Website"			"https://{{ dns_sourcebans|default(dns) }}/"
 
         // Allow or disallow admins access to addban command
         "Addban"			"1"

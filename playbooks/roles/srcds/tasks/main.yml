@@ -91,7 +91,7 @@
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
-    state: started
+    state: restarted
     enabled: true
     name: tf2server
 
