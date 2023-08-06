@@ -7,7 +7,6 @@ map_rotations:
     #ad
     - workshop/cp_blizzard_bowl.ugc2893516161
     - cp_gorge
-    - workshop/cp_grotto.ugc873114048
     - workshop/cp_hadal_rc1.ugc804251853
     - cp_hardwood_final
     - workshop/cp_hoto_b13.ugc962571666
@@ -18,7 +17,6 @@ map_rotations:
     - cp_process_final
     - cp_reckoner
     - cp_snakewater_final1
-    - cp_steel
     - cp_sunshine
     - ctf_pelican_peak
     - workshop/ctf_turbine_winter_rc2.ugc2887605754
@@ -41,7 +39,6 @@ map_rotations:
     - workshop/pl_boundary_final1.ugc456799153
     - pl_borneo
     - workshop/pl_cactus_canyon_redux.ugc2579644293
-    - workshop/pl_camber.ugc1375766014
     - pl_coal_event
     - workshop/pl_eruption.ugc2969573312
     - workshop/pl_extinction.ugc2961457712
@@ -51,7 +48,6 @@ map_rotations:
     - pl_rumford_event
     - pl_snowycoast
     - pl_swiftwater_final1
-    - workshop/pl_timbermill.ugc454304371
     - pl_upward
     - workshop/pl_vigil.ugc1266210012
     - workshop/pl_vineyard_rc8b.ugc2811632094
