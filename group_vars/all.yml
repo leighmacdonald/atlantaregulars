@@ -8,9 +8,12 @@ map_rotations:
     - workshop/cp_blizzard_bowl.ugc2893516161
     - cp_gorge
     - workshop/cp_grotto.ugc873114048
+    - workshop/cp_hadal_rc1.ugc804251853
     - cp_hardwood_final
+    - workshop/cp_hoto_b13.ugc962571666
     - cp_mossrock
     - cp_mountainlab
+    - workshop/cp_osiris_b27.ugc2646201685
     - workshop/cp_pride_rock.ugc854220622
     - cp_process_final
     - cp_reckoner
@@ -18,19 +21,24 @@ map_rotations:
     - cp_steel
     - cp_sunshine
     - ctf_pelican_peak
+    - workshop/ctf_turbine_winter_rc2.ugc2887605754
     - workshop/koth_ashville.ugc2130459942
     - workshop/koth_bagel.ugc2514036946
     - workshop/koth_brine.ugc2965195337
     - koth_cascade
+    - workshop/koth_empire_rc2.ugc2964983276
+    - workshop/koth_eros_rc2.ugc723738998
     - koth_harvest_final
     - koth_highpass
     - workshop/koth_product.ugc454272353
     - koth_rotunda
+    - workshop/koth_sekhmet_b4.ugc630617124
     - koth_sharkbay
     - workshop/koth_shorelight.ugc2808425307
     - workshop/koth_slaughter.ugc1712845210
     - pd_selbyen
     - workshop/pl_badwater_pro_v12.ugc2142942074
+    - workshop/pl_boundary_final1.ugc456799153
     - pl_borneo
     - workshop/pl_cactus_canyon_redux.ugc2579644293
     - workshop/pl_camber.ugc1375766014
@@ -46,6 +54,7 @@ map_rotations:
     - workshop/pl_timbermill.ugc454304371
     - pl_upward
     - workshop/pl_vigil.ugc1266210012
+    - workshop/pl_vineyard_rc8b.ugc2811632094
     - plr_bananabay
 
 admin_overrides:
