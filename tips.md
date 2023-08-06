@@ -14,7 +14,9 @@ Expects username of `tf2server` and custom group name `tf2` with ssh keys setup.
 - `make sourcemod` Download and build sourcemod plugins and distribution
 - `make srcds` Download and configure tf2 server
 
-## Server Permissions
+## Server Admin Commands
+
+### Server Permissions / Reserved Slots
 
 - run *once* in server shell upon install: `sm_create_adm_tables`
 
@@ -31,3 +33,24 @@ Admin user, level 50 immunity, cannot perform actions against the 100, despite b
 You *must* run this command after making changes to admins, or otherwise restart the server.
 
     sm_reloadadmins
+
+Most admin commands can be access through:
+    
+    sm_admin    
+
+Rcon Example
+    
+    sm_rcon status
+
+Change cvar
+
+    sm_cvar mp_waitingforplayers_time 35 
+
+Player bans commands
+    
+    # menu
+    sm_ban
+    # command 
+    sm_addban <time> <steamid> [reason]
+
+You can find a list of all base sourcemod commands [here](https://wiki.alliedmods.net/Admin_commands_(sourcemod)).
