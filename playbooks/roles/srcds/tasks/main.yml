@@ -95,3 +95,11 @@
     enabled: true
     name: tf2server
 
+- name: cron
+  become: true
+  ansible.builtin.cron:
+    name: "tf2-restart"
+    weekday: "*"
+    minute: "0"
+    hour: "6"
+    job: "systemctl restart tf2server"
