@@ -34,23 +34,43 @@ You *must* run this command after making changes to admins, or otherwise restart
 
     sm_reloadadmins
 
-Most admin commands can be access through:
+### General Admin Commands
+
+Most admin commands can be access through a high level menu:
     
-    sm_admin    
+    /sm_admin    
+
+Bans / Kick players
+    
+    /sm_ban
+    /sm_kick
 
 Rcon Example
     
-    sm_rcon status
+    /sm_rcon status
 
 Change cvar
 
-    sm_cvar mp_waitingforplayers_time 35 
+    /sm_cvar mp_waitingforplayers_time 35 
 
 Player bans commands
     
     # menu
-    sm_ban
+    /sm_ban
     # command 
-    sm_addban <time> <steamid> [reason]
+    /sm_addban <time> <steamid> [reason]
 
 You can find a list of all base sourcemod commands [here](https://wiki.alliedmods.net/Admin_commands_(sourcemod)).
+
+### Stats
+
+Some require html motds enabled to work in game `cl_disablehtmlmotd "0"`
+
+High level stats command menu
+
+    /hlx
+
+Your current alltime/session rank
+
+    /rank
+    
