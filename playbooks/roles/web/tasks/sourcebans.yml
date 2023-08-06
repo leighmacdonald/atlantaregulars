@@ -1,0 +1,94 @@
+---
+
+- name: Create /srv/sourcebans directory
+  ansible.builtin.file:
+    path: /srv/sourcebans
+    owner: www-data
+    group: www-data
+    state: directory
+    mode: "0770"
+
+- name: Download sourcebans-web
+  ansible.builtin.unarchive:
+    owner: www-data
+    group: www-data
+    src: https://github.com/sbpp/sourcebans-pp/releases/download/1.7.0/sourcebans-pp-1.7.0.webpanel-only.tar.gz
+    dest: /srv/sourcebans
+    remote_src: true
+    creates: /srv/sourcebans/sourcebans-pp-1.7.0.webpanel-only
+
+- name: Create sourcebans db
+  community.mysql.mysql_db:
+    name: sourcebans
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create sm_admins db
+  community.mysql.mysql_db:
+    name: smadmins
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create clientprefs db
+  community.mysql.mysql_db:
+    name: clientprefs
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create storage-local db
+  community.mysql.mysql_db:
+    name: storagelocal
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create sourcebans user
+  community.mysql.mysql_user:
+    check_implicit_admin: true
+    login_user: root
+    name: "{{ database.sourcebans.user }}"
+    password: "{{ database.sourcebans.pass }}"
+    state: present
+    priv:
+      'sourcebans.*': 'ALL'
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create smadmins user
+  community.mysql.mysql_user:
+    name: "{{ database.smadmins.user }}"
+    password: "{{ database.smadmins.pass }}"
+    priv:
+      'smadmins.*': 'ALL'
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create clientprefs user
+  community.mysql.mysql_user:
+    name: "{{ database.clientprefs.user }}"
+    password: "{{ database.clientprefs.pass }}"
+    priv:
+      'clientprefs.*': ALL
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create storage-local user
+  community.mysql.mysql_user:
+    name: "{{ database.storagelocal.user }}"
+    password: "{{ database.storagelocal.pass }}"
+    priv:
+      'storagelocal.*': 'ALL'
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: ufw allow http
+  become: true
+  ansible.builtin.ufw:
+    rule: allow
+    port: "80"
+    proto: tcp
+
+- name: ufw allow https
+  become: true
+  ansible.builtin.ufw:
+    rule: allow
+    port: "443"
+    proto: tcp

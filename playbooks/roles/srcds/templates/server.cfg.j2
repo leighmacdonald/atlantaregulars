@@ -41,6 +41,12 @@ sv_logecho 1
 sv_logfile 0
 sv_log_onefile 0
 
+log on
+logaddress_add 127.0.0.1:27500
+sv_log_onefile "0"
+sv_logbans "1"
+
+sv_logsdir "0"
 tf_medieval 0
 tf_medieval_autorp 0
 
@@ -157,3 +163,4 @@ sm_cvar mp_waitingforplayers_time 35
 
 sm_cvar sbpp_discord_banhook "{{ discord.sbpp_discord_banhook }}"
 sm_cvar sbpp_discord_reporthook "{{ discord.sbpp_discord_reporthook }}"
+

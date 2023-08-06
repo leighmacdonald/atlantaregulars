@@ -44,6 +44,14 @@
           - php8.1-mysql
           - php-xml
           - php-gmp
+          - libssl-dev
+          - zlib1g-dev
+          - libmaxmind-db-reader-perl
+          - libsyntax-keyword-try-perl
+          - libgeoip2-perl
+          - build-essential
+          - php-curl
+          - php-gd
           - mariadb-server
           - mariadb-client
           - python3-mysqldb
