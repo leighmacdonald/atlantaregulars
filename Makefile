@@ -16,7 +16,7 @@ srcds:
 	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/srcds.yml
 
 web:
-	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/web.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-playbook -i $(HOSTS) -u $(USER) $(PLAYBOOK_PATH)/web.yml --start-at-task "Changing perm of /srv/stats-scripts/GeoLiteCity/install_binary.sh"
 
 rekey:
 	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault rekey -v hosts.yml group_vars/secrets.yml host_vars/*.yml
@@ -25,4 +25,4 @@ encrypt:
 	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault encrypt -v hosts.yml group_vars/secrets.yml host_vars/*.yml
 
 secrets:
-	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault edit group_vars/secrets.yml
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) EDITOR=nano ansible-vault edit group_vars/secrets.yml

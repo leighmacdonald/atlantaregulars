@@ -1,0 +1,166 @@
+---
+
+- name: Create stats db
+  community.mysql.mysql_db:
+    name: stats
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Create stats user
+  community.mysql.mysql_user:
+    check_implicit_admin: true
+    login_user: root
+    name: "{{ database.stats.user }}"
+    password: "{{ database.stats.pass }}"
+    state: present
+    priv:
+      'stats.*': 'ALL'
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/A1mDev/hlstatsx-community-edition.git'
+    dest: /tmp/stats-git
+    version: master
+
+- name: Create /srv/stats directory
+  ansible.builtin.file:
+    path: /srv/stats
+    owner: www-data
+    group: www-data
+    state: directory
+    mode: "0770"
+
+- name: Copy web files
+  ansible.builtin.copy:
+    src: /tmp/stats-git/web/
+    dest: /srv/stats/
+    owner: www-data
+    group: www-data
+    remote_src: yes
+
+- name: /srv/webroot/index.html
+  ansible.builtin.template:
+    src: stats-config.php.j2
+    dest: /srv/stats/config.php
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+#- name: run install.sql
+#  shell: "mysql  -u {{ database.stats.user }} -D stats -p{{ database.stats.pass }} < /tmp/stats-git/sql/install.sql >>/tmp/stats-git/install.log"
+
+- name: Remove updater dir
+  ansible.builtin.file:
+    path: /srv/stats/updater
+    state: absent
+
+- name: Copy web files
+  ansible.builtin.copy:
+    src: /tmp/stats-git/scripts/
+    dest: /srv/stats-scripts/
+    owner: www-data
+    group: www-data
+    remote_src: yes
+
+- name: Changing perm of /srv/stats-scripts/hlstats-awards.pl
+  become: true
+  file:
+    dest: /srv/stats-scripts/hlstats-awards.pl
+    mode: a+x
+
+- name: Changing perm of /srv/stats-scripts/hlstats.pl
+  become: true
+  file:
+    dest: /srv/stats-scripts/hlstats.pl
+    mode: a+x
+
+- name: Changing perm of /srv/stats-scripts/hlstats-resolve.pl
+  become: true
+  file:
+    dest: /srv/stats-scripts/hlstats-resolve.pl
+    mode: a+x
+
+- name: Changing perm of /srv/stats-scripts/run_hlstats
+  become: true
+  file:
+    dest: /srv/stats-scripts/run_hlstats
+    mode: a+x
+
+- name: Changing perm of /srv/stats-scripts/GeoLiteCity/install_binary.sh
+  become: true
+  file:
+    dest: /srv/stats-scripts/GeoLiteCity/install_binary.sh
+    mode: a+x
+
+- name: /srv/stats-scripts/hlstats.conf
+  ansible.builtin.template:
+    src: hlstats.conf.j2
+    dest: /srv/stats-scripts/hlstats.conf
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Set maxmind api key
+  ansible.builtin.replace:
+    path: /srv/stats-scripts/GeoLiteCity/install_binary.sh
+    regexp: '(^API_KEY=)"(.*)"$'
+    replace: '\1"{{ maxmind_apikey }}"'
+
+- name: run /srv/stats-scripts/GeoLiteCity/install_binary.sh
+  become: true
+  shell:
+    chdir: "/srv/stats-scripts/GeoLiteCity"
+    cmd: "/srv/stats-scripts/GeoLiteCity/install_binary.sh"
+    creates: /srv/stats-scripts/GeoLiteCity/GeoLite2-City.mmdb
+
+#- name: /etc/systemd/system/hlstats.service
+#  become: true
+#  ansible.builtin.template:
+#    src: hlstats.service.j2
+#    dest: "/etc/systemd/system/hlstats.service"
+#    mode: 0755
+
+#- name: Restart hlstats
+#  become: true
+#  ansible.builtin.systemd:
+#    daemon_reload: true
+#    state: restarted
+#    enabled: true
+#    name: hlstats
+
+- name: Create a cron entry for run_hlstats start
+  ansible.builtin.cron:
+    name: Auto start run_hlstats
+    weekday: "*"
+    minute: "*/5"
+    hour: "*"
+    user: www-data
+    job: "cd /srv/stats-scripts && ./run_hlstats start >/dev/null 2>&1"
+
+- name: Create a cron entry for run_hlstats start
+  ansible.builtin.cron:
+    name: Auto restart run_hlstats
+    weekday: "*"
+    minute: "0"
+    hour: "6"
+    user: www-data
+    job: "cd /srv/stats-scripts && ./run_hlstats restart >/dev/null 2>&1"
+
+- name: Create a cron entry for hlstats-awards.pl
+  ansible.builtin.cron:
+    name: hlstats-awards.pl
+    weekday: "*"
+    minute: "0"
+    hour: "6"
+    user: www-data
+    job: "cd /srv/stats-scripts && ./hlstats-awards.pl >/dev/null 2>&1"
+
+- name: Create a cron entry to "Auto remove old Daemon logs
+  ansible.builtin.cron:
+    name: "Auto remove old Daemon logs odler than 14 days"
+    weekday: "*"
+    minute: "0"
+    hour: "6"
+    user: www-data
+    job: "find /srv/stats-scripts/logs -type f -mtime +14 -exec rm -rf {} \ >/dev/null 2>&1"

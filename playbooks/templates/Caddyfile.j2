@@ -3,7 +3,36 @@
         output file /var/log/caddy/{{ dns }}-access.log
     }
 
+    root * /srv/webroot
+    file_server
+}
+
+{{ dns_sourcebans }} {
+    log {
+        output file /var/log/caddy/{{ dns_sourcebans }}-access.log
+    }
+
     root * /srv/sourcebans/sourcebans-pp-1.7.0.webpanel-only
+    php_fastcgi unix//run/php/php8.1-fpm.sock
+    file_server
+}
+
+{{ dns_stv }} {
+    log {
+        output file /var/log/caddy/{{ dns_stv }}-access.log
+    }
+
+    root * /srv/stv
+    php_fastcgi unix//run/php/php8.1-fpm.sock
+    file_server
+}
+
+{{ dns_stats }} {
+    log {
+        output file /var/log/caddy/{{ dns_stats }}-access.log
+    }
+
+    root * /srv/stats
     php_fastcgi unix//run/php/php8.1-fpm.sock
     file_server
 }
