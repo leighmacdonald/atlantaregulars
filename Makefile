@@ -23,3 +23,6 @@ rekey:
 
 encrypt:
 	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault encrypt -v hosts.yml group_vars/secrets.yml host_vars/*.yml
+
+secrets:
+	ANSIBLE_VAULT_PASSWORD_FILE=$(PASSWORD_FILE) ansible-vault edit group_vars/secrets.yml
