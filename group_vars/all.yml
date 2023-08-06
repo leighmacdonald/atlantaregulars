@@ -405,7 +405,7 @@ networktools:
   nt_enabled: "1"
   nt_kickvocalize: "0"
   nt_lat_threashold: "6"
-  nt_latency_addition: "150"
+  nt_latency_addition: "175"
   nt_latency_enable: "1"
   nt_liammethod: "0"
   nt_logenabled: "1"
