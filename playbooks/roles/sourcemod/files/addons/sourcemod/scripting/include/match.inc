@@ -34,7 +34,7 @@ TODO:
 #endif
 #define _match_included
 
-#pragma newdecls required
+
 
 #include <smlib/math>
 #include <f2stocks>

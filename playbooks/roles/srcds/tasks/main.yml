@@ -103,3 +103,12 @@
     minute: "0"
     hour: "6"
     job: "systemctl restart tf2server"
+
+- name: Create /srv/stv directory
+  become: true
+  ansible.builtin.file:
+    path: /srv/stv
+    owner: www-data
+    # group: www-data
+    state: directory
+    mode: "0777"
