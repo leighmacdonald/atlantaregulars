@@ -22,9 +22,9 @@
         output file /var/log/caddy/{{ dns_stv }}-access.log
     }
 
-    root * /srv/stv
-    php_fastcgi unix//run/php/php8.1-fpm.sock
-    file_server
+    root * /home/tf2server/srcds/tf/demos/
+
+    file_server browse
 }
 
 {{ dns_stats }} {
