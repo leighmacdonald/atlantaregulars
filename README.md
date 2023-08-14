@@ -12,7 +12,6 @@ Add ansible deps:
 
 Expects username of `tf2server` and custom group name `tf2` with ssh keys setup. The rest is automated
 
-
 `make setup` Setup base system stuff. packages, tuning, etc.
 
 `make web` Setup databases and webserver with sourcebans
