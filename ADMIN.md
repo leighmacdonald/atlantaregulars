@@ -1,22 +1,6 @@
-# General Admins Info
+# General In-Game Admins Commands
 
-## Ansible commands
-
-Add ansible deps:
-    
-    ansible-galaxy install -r requirements.yml
-    ln -s ~/.ansible/collections/ansible_collections/community/mysql community.mysql ???
-
-Expects username of `tf2server` and custom group name `tf2` with ssh keys setup. The rest is automated
-
-- `make setup` Setup base system stuff. packgages, tuning, etc.
-- `make web` Setup databases and webserver with sourcebans
-- `make sourcemod` Download and build sourcemod plugins and distribution
-- `make srcds` Download and configure tf2 server
-
-## Server Admin Commands
-
-### Server Permissions / Reserved Slots
+## Server Permissions / Reserved Slots
 
 - run *once* in server shell upon install: `sm_create_adm_tables`
 
@@ -34,7 +18,7 @@ You *must* run this command after making changes to admins, or otherwise restart
 
     sm_reloadadmins
 
-### General Admin Commands
+## General Admin Commands
 
 Most admin commands can be access through a high level menu:
     
@@ -62,7 +46,7 @@ Player bans commands
 
 You can find a list of all base sourcemod commands [here](https://wiki.alliedmods.net/Admin_commands_(sourcemod)).
 
-### Stats
+## Stats
 
 Some require html motds enabled to work in game `cl_disablehtmlmotd "0"`
 

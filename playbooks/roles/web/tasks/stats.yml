@@ -39,7 +39,14 @@
     group: www-data
     remote_src: yes
 
-- name: /srv/webroot/index.html
+- name: Disable city output
+  ansible.builtin.replace:
+    path: /srv/stats/pages/playerinfo_general.php
+    # echo htmlspecialchars($playerdata['city'], ENT_COMPAT) . ', ';
+    regexp: "(echo htmlspecialchars\\(\\$playerdata\\['city'])"
+    replace: '// \1'
+
+- name: /srv/stats/config.php
   ansible.builtin.template:
     src: stats-config.php.j2
     dest: /srv/stats/config.php
@@ -47,8 +54,10 @@
     group: www-data
     mode: 0755
 
-#- name: run install.sql
-#  shell: "mysql  -u {{ database.stats.user }} -D stats -p{{ database.stats.pass }} < /tmp/stats-git/sql/install.sql >>/tmp/stats-git/install.log"
+- name: run install.sql
+  ansible.builtin.shell:
+    cmd: "mysql  -u {{ database.stats.user }} -D stats -p{{ database.stats.pass }} < /tmp/stats-git/sql/install.sql >>/tmp/stats-git/install.log && touch /srv/stats/.installed"
+    creates: /srv/stats/.installed
 
 - name: Remove updater dir
   ansible.builtin.file:
