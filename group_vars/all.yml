@@ -37,14 +37,15 @@ map_rotations:
     - workshop/koth_slaughter.ugc1712845210
     - pd_selbyen
     - workshop/pl_badwater_pro_v12.ugc2142942074
-    - workshop/pl_boundary_final1.ugc456799153
+    # - workshop/pl_boundary_final1.ugc456799153
     - pl_borneo
     - workshop/pl_cactus_canyon_redux.ugc2579644293
     - pl_coal_event
     - workshop/pl_eruption.ugc2969573312
     - workshop/pl_extinction.ugc2961457712
     - pl_frontier_final
-    - workshop/pl_oasis.ugc1366095901
+    - pl_phoenix
+    # - workshop/pl_oasis.ugc1366095901
     - pl_pier
     - workshop/pl_mesaworks.ugc1961498216
     - pl_rumford_event
