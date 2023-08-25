@@ -32,4 +32,12 @@
         "user"				"{{ database.sourcebans.user }}"
         "pass"				"{{ database.sourcebans.pass }}"
     }
+    "hlxce"
+    {
+        "driver"        "mysql"
+        "host"            "/run/mysqld/mysqld.sock"
+        "database"        "stats"
+        "user"            "{{ database.stats.user }}"
+        "pass"            "{{ database.stats.pass }}"
+    }
 }
