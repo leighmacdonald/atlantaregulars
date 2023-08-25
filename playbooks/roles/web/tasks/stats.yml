@@ -123,21 +123,6 @@
     cmd: "/srv/stats-scripts/GeoLiteCity/install_binary.sh"
     creates: /srv/stats-scripts/GeoLiteCity/GeoLite2-City.mmdb
 
-#- name: /etc/systemd/system/hlstats.service
-#  become: true
-#  ansible.builtin.template:
-#    src: hlstats.service.j2
-#    dest: "/etc/systemd/system/hlstats.service"
-#    mode: 0755
-
-#- name: Restart hlstats
-#  become: true
-#  ansible.builtin.systemd:
-#    daemon_reload: true
-#    state: restarted
-#    enabled: true
-#    name: hlstats
-
 - name: Create a cron entry for run_hlstats start
   ansible.builtin.cron:
     name: Auto start run_hlstats
