@@ -29,6 +29,7 @@ map_rotations:
     - koth_harvest_final
     - koth_highpass
     - workshop/koth_product.ugc454272353
+    - workshop/koth_relic.ugc2965301326
     - koth_rotunda
     - workshop/koth_sekhmet_b4.ugc630617124
     - koth_sharkbay
@@ -45,6 +46,7 @@ map_rotations:
     - pl_frontier_final
     - workshop/pl_oasis.ugc1366095901
     - pl_pier
+    - workshop/pl_mesaworks.ugc1961498216
     - pl_rumford_event
     - pl_snowycoast
     - pl_swiftwater_final1
